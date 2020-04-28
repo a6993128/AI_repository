@@ -17,6 +17,12 @@ import matplotlib.pyplot as plt
 print("x_train.shape={}, y_train.shape={}".format(x_train.shape, y_train.shape))
 print("x_test.shape={}, y_test.shape={}".format(x_test.shape, y_test.shape))
 
+#顯示手寫資料
+from matplotlib.pyplot import imshow
+imshow(x_train[0])
+# print(x_train[0])
+print(y_train[0])
+
 
 # 接著我們必須將x_train及x_test dataset由原本三維轉為四維矩陣以符合CNN的需求
 # 這是因為RGB圖片的格式為為width, height, channels，加上ID數維度為4。
