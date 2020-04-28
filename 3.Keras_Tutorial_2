@@ -1,0 +1,22 @@
+import keras
+from keras.models import Sequential   #引入Sequential函式
+from keras.layers import Dense, Dropout, Activation  #引入層數及激勵函數
+from keras.optimizers import SGD
+
+# Generate dummy data
+import numpy as np
+x_train = np.random.random((1000, 10))
+y_train = keras.utils.to_categorical(np.random.randint(10, size=(1000, 1)), num_classes=10)
+x_test = np.random.random((100, 10))
+y_test = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_classes=10)
+
+model = Sequential()  #定義模型
+model.add(Dense(64, activation='relu', input_dim=10)) #Dense：全連接層 #輸入的張量，10神經元(或稱組數輸入)
+model.add(Dense(64, activation='relu')) #設定激活層並採用relu
+model.add(Dense(10, activation='softmax'))
+sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+
+model.fit(x_train, y_train, epochs=20, batch_size=128)
+score = model.evaluate(x_test, y_test, batch_size=128)
+print(score)  #顯示分數
