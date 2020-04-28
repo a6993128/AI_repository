@@ -1,0 +1,18 @@
+import keras 
+from keras.models import Sequential  #引入Sequential函式
+from keras.layers import Dense, Dropout, Flatten
+
+model = Sequential()  建置Sequential模型
+model.add(Flatten())
+model.add(Dense(512, activation='relu')) #512是輸出的神經元數量或稱組數   #設定激活層並採用relu
+model.add(Dropout(0.2))
+model.add(Dense(10, activation='softmax'))
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+import tensorflow as tf
+mnist = tf.keras.datasets.mnist
+(x_train, y_train),(x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0
+
+model.fit(x_train, y_train, epochs=5)
+model.evaluate(x_test, y_test)
